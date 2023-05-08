@@ -7,5 +7,6 @@ namespace Goole_OpenId.Controllers
     [ApiController]
     public class GooleController : ControllerBase
     {
+
     }
 }
