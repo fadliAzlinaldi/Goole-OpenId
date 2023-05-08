@@ -16,17 +16,43 @@ namespace Goole_OpenId.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserRepo _userRepo;
         private readonly IRoleRepo _roleRepo;
+        private readonly IUserService _userService;
 
-        public GooleController(GooleDbContext context, IConfiguration configuration, IUserRepo userRepo, IRoleRepo roleRepo)
+        public GooleController(GooleDbContext context, IConfiguration configuration, IUserRepo userRepo, IRoleRepo roleRepo, IUserService userService)
         {
             _context = context;
             _configuration = configuration;
             _userRepo = userRepo;
             _roleRepo = roleRepo;
+            _userService = userService;
         }
         [HttpPost]
-        public string Register(RegisterDto user)
+        public async Task<string> Register(RegisterDto user)
         {
+            try
+            {
+                // tambah user
+                var u = new User
+                {
+                    Username = user.Username,
+                    Password = BC.HashPassword(user.Password),
+                    Fullname = user.Fullname,
+                    PhoneNumber = user.PhoneNumber,
+                    Email = user.Email,
+                    Address = user.Address,
+                    City = user.City
+                };
+
+                // tambah user dan role ke dalam database
+                await _userService.RegisterUserAsync(u);
+
+                return "sukses";
+            }
+            catch (Exception ex)
+            {
+                return "gagal";
+            }
+
             //// transaction
             //using (var trans = _userRepo.startTransactionAsync()) // startTransactionAsync
             //{
@@ -66,7 +92,6 @@ namespace Goole_OpenId.Controllers
             //        trans.Rollback();
             //    }
             //}
-            return "gagal";
         }
 
         [HttpPut("update")]
