@@ -17,6 +17,9 @@ builder.Services.AddSwaggerGen();
 string db = builder.Configuration.GetConnectionString("MyDb");
 builder.Services.AddDbContext<GooleDbContext>(options => options.UseSqlServer(db));
 
+//menambahkan AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // jwt
 var secret = builder.Configuration["AppSettings:Secret"];
 var secretBytes = Encoding.ASCII.GetBytes(secret);
