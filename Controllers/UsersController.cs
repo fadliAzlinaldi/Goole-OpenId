@@ -20,5 +20,11 @@ namespace Goole_OpenId.Controllers
         {
             return View();
         }
+
+        public IActionResult test4()
+        {
+            return View();
+        }
+
     }
 }
