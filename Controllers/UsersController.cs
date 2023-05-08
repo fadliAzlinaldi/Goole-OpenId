@@ -25,6 +25,9 @@ namespace Goole_OpenId.Controllers
         {
             return View();
         }
-
+        public string Hello()
+        {
+            return "Hello guys";
+        }
     }
 }
