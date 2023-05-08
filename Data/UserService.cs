@@ -1,5 +1,6 @@
 ﻿using Goole_OpenId.Dtos;
 using Goole_OpenId.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,13 +17,15 @@ namespace Goole_OpenId.Data
         private readonly IRoleRepo _roleRepo;
         private readonly GooleDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IUserRepo userRepo, IRoleRepo roleRepo, GooleDbContext context, IConfiguration configuration)
+        public UserService(IUserRepo userRepo, IRoleRepo roleRepo, GooleDbContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _userRepo = userRepo;
             _roleRepo = roleRepo;
             _context = context;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<UserToken> LoginUserAsync(LoginDto login)
@@ -102,6 +105,18 @@ namespace Goole_OpenId.Data
                     throw new Exception("Gagal menambahkan user", ex);
                 }
             }
+        }
+
+        public async Task UpdatePassword(string password)
+        {
+            // get username
+            var user = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            if (user == null) { throw new ArgumentException("user not found"); }
+
+            // ambil user
+            var u = await _userRepo.GetUser(user);
+            u.Password = BC.HashPassword(password);
+            await _userRepo.UpdateUser(u);
         }
     }
 }

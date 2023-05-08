@@ -28,6 +28,11 @@ builder.Services.AddScoped<IRoleRepo, RoleRepo>();
 // service user service repo
 builder.Services.AddScoped<IUserService, UserService>();
 
+// service http context
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 // jwt
 var secret = builder.Configuration["AppSettings:Secret"];
 var secretBytes = Encoding.ASCII.GetBytes(secret);

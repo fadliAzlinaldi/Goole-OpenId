@@ -9,6 +9,8 @@ namespace Goole_OpenId.Data
     {
         Task AddUserAsync(User user);
         Task AddUserRoleAsync(UserRole userRole);
+        Task<User> GetUser(string username);
+        Task UpdateUser(User user);
         //Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateProfile);
     }
 }

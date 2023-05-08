@@ -24,6 +24,25 @@ namespace Goole_OpenId.Data
         {
             await _context.UserRoles.AddAsync(userRole);
         }
+
+        public async Task<User> GetUser(string username)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(o => o.Username == username && o.IsBanned == false);
+
+            if (user == null)
+            {
+                // jika user tidak ditemukan
+                throw new ArgumentException($"User with username {username} not found or is banned.");
+            }
+
+            return user;
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
         //public async Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateDto)
         //{
         //    var user = await _userManager.FindByIdAsync(id.ToString());

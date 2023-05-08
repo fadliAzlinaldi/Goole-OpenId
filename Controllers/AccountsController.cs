@@ -22,7 +22,7 @@ namespace Goole_OpenId.Controllers
             _roleRepo = roleRepo;
             _userService = userService;
         }
-        [HttpPost("/register")]
+        [HttpPost("/Register")]
         public async Task<string> Register(RegisterDto user)
         {
             try
@@ -48,7 +48,7 @@ namespace Goole_OpenId.Controllers
                 return "failed register";
             }
         }
-        [HttpPost("/login")]
+        [HttpPost("/Login")]
         public async Task<IActionResult> Login(LoginDto login)
         {
             var userToken = await _userService.LoginUserAsync(login);
