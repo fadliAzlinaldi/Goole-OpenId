@@ -1,7 +1,9 @@
-﻿using Goole_OpenId.Dtos;
+﻿using Goole_OpenId.Data;
+using Goole_OpenId.Dtos;
 using Goole_OpenId.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Goole_OpenId.Controllers
@@ -10,12 +12,14 @@ namespace Goole_OpenId.Controllers
     [ApiController]
     public class GooleController : ControllerBase
     {
+        private readonly IProfileRepo _profileRepo;
         private readonly GooleDbContext _context;
         private readonly IConfiguration _configuration;
-        public GooleController(GooleDbContext context, IConfiguration configuration)
+        public GooleController(GooleDbContext context, IConfiguration configuration, IProfileRepo profileRepo)
         {
             _context = context;
             _configuration = configuration;
+            _profileRepo = profileRepo;
         }
         [HttpPost]
         public string Register(RegisterDto user)
@@ -60,6 +64,23 @@ namespace Goole_OpenId.Controllers
                 }
             }
             return "gagal";
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateProfileAsync(UpdateProfileDto updateDto)
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            bool result = await _profileRepo.UpdateProfileAsync(userId, updateDto);
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Gagal memperbarui profil pengguna.");
+            }
         }
     }
 }

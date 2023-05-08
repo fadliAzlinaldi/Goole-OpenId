@@ -6,6 +6,6 @@ namespace Goole_OpenId.Data
 {
     public interface IProfileRepo
     {
-        Task<IActionResult> UpdateProfileAsync(UpdateProfileDto updateProfile);
+        Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateProfile);
     }
 }
