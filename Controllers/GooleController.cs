@@ -12,17 +12,15 @@ namespace Goole_OpenId.Controllers
     [ApiController]
     public class GooleController : ControllerBase
     {
-        private readonly IProfileRepo _profileRepo;
         private readonly GooleDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly IUserRepo _userRepo;
         private readonly IRoleRepo _roleRepo;
 
-        public GooleController(GooleDbContext context, IConfiguration configuration, IProfileRepo profileRepo, IUserRepo userRepo, IRoleRepo roleRepo)
+        public GooleController(GooleDbContext context, IConfiguration configuration, IUserRepo userRepo, IRoleRepo roleRepo)
         {
             _context = context;
             _configuration = configuration;
-            _profileRepo = profileRepo;
             _userRepo = userRepo;
             _roleRepo = roleRepo;
         }
@@ -76,7 +74,7 @@ namespace Goole_OpenId.Controllers
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            bool result = await _profileRepo.UpdateProfileAsync(userId, updateDto);
+            bool result = await _userRepo.UpdateProfileAsync(userId, updateDto);
 
             if (result)
             {
