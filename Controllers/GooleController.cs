@@ -15,17 +15,22 @@ namespace Goole_OpenId.Controllers
         private readonly IProfileRepo _profileRepo;
         private readonly GooleDbContext _context;
         private readonly IConfiguration _configuration;
-        public GooleController(GooleDbContext context, IConfiguration configuration, IProfileRepo profileRepo)
+        private readonly IUserRepo _userRepo;
+        private readonly IRoleRepo _roleRepo;
+
+        public GooleController(GooleDbContext context, IConfiguration configuration, IProfileRepo profileRepo, IUserRepo userRepo, IRoleRepo roleRepo)
         {
             _context = context;
             _configuration = configuration;
             _profileRepo = profileRepo;
+            _userRepo = userRepo;
+            _roleRepo = roleRepo;
         }
         [HttpPost]
         public string Register(RegisterDto user)
         {
             // transaction
-            using (var trans = _context.Database.BeginTransaction()) // startTransactionAsync
+            using (var trans = _userRepo.startTransactionAsync()) // startTransactionAsync
             {
                 try
                 {
@@ -42,7 +47,7 @@ namespace Goole_OpenId.Controllers
                     };
 
                     // ambil role member
-                    var role = _context.Roles.Where(o => o.NameRole == "member").FirstOrDefault(); // GetRoleMemberAsync
+                    var role = _roleRepo.GetRoleMemberAsync(); // GetRoleMemberAsync
                     // assign role ke user
                     if (role != null)
                     {
