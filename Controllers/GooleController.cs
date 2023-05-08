@@ -21,7 +21,7 @@ namespace Goole_OpenId.Controllers
         public string Register(RegisterDto user)
         {
             // transaction
-            using (var trans = _context.Database.BeginTransaction())
+            using (var trans = _context.Database.BeginTransaction()) // startTransactionAsync
             {
                 try
                 {
@@ -38,7 +38,7 @@ namespace Goole_OpenId.Controllers
                     };
 
                     // ambil role member
-                    var role = _context.Roles.Where(o => o.NameRole == "member").FirstOrDefault();
+                    var role = _context.Roles.Where(o => o.NameRole == "member").FirstOrDefault(); // GetRoleMemberAsync
                     // assign role ke user
                     if (role != null)
                     {
