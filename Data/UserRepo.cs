@@ -9,14 +9,12 @@ namespace Goole_OpenId.Data
 {
     public class UserRepo : IUserRepo
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        //private readonly UserManager<User> _userManager;
+        //private readonly SignInManager<User> _signInManager;
         private readonly GooleDbContext _context;
-        public UserRepo(GooleDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserRepo(GooleDbContext context)
         {
             _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
         public async Task AddUserAsync(User user)
         {
@@ -26,24 +24,24 @@ namespace Goole_OpenId.Data
         {
             await _context.UserRoles.AddAsync(userRole);
         }
-        public async Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateDto)
-        {
-            var user = await _userManager.FindByIdAsync(id.ToString());
+        //public async Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateDto)
+        //{
+        //    var user = await _userManager.FindByIdAsync(id.ToString());
 
-            if (user == null)
-            {
-                return false;
-            }
+        //    if (user == null)
+        //    {
+        //        return false;
+        //    }
 
-            user.Fullname = updateDto.Fullname;
-            user.PhoneNumber = updateDto.PhoneNumber;
-            user.Email = updateDto.Email;
-            user.Address = updateDto.Address;
-            user.City = updateDto.City;
+        //    user.Fullname = updateDto.Fullname;
+        //    user.PhoneNumber = updateDto.PhoneNumber;
+        //    user.Email = updateDto.Email;
+        //    user.Address = updateDto.Address;
+        //    user.City = updateDto.City;
 
-            var result = await _userManager.UpdateAsync(user);
+        //    var result = await _userManager.UpdateAsync(user);
 
-            return result.Succeeded;
-        }
+        //    return result.Succeeded;
+        //}
     }
 }

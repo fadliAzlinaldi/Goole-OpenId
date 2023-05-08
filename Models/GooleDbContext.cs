@@ -53,6 +53,9 @@ public partial class GooleDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Password).HasColumnType("text");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .IsUnicode(false);

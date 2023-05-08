@@ -1,5 +1,7 @@
+using Goole_OpenId.Data;
 using Goole_OpenId.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -17,8 +19,14 @@ builder.Services.AddSwaggerGen();
 string db = builder.Configuration.GetConnectionString("MyDb");
 builder.Services.AddDbContext<GooleDbContext>(options => options.UseSqlServer(db));
 
-//menambahkan AutoMapper
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+// service user repo 
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+
+// service role repo
+builder.Services.AddScoped<IRoleRepo, RoleRepo>();
+
+// service user service repo
+builder.Services.AddScoped<IUserService, UserService>();
 
 // jwt
 var secret = builder.Configuration["AppSettings:Secret"];
