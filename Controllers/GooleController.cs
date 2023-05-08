@@ -72,7 +72,7 @@ namespace Goole_OpenId.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateProfileAsync(UpdateProfileDto updateDto)
+        public async Task<IActionResult> UpdateProfile(UpdateProfileDto updateDto)
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
