@@ -8,5 +8,9 @@ namespace Goole_OpenId.Controllers
         {
            return View();
         }
+        public IActionResult test1()
+        {
+            return View();
+        }
     }
 }
