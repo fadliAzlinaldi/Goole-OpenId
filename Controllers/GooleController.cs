@@ -27,45 +27,45 @@ namespace Goole_OpenId.Controllers
         [HttpPost]
         public string Register(RegisterDto user)
         {
-            // transaction
-            using (var trans = _userRepo.startTransactionAsync()) // startTransactionAsync
-            {
-                try
-                {
-                    // tambah user
-                    var u = new User
-                    {
-                        Username = user.Username,
-                        Password = BC.HashPassword(user.Password),
-                        Fullname = user.Fullname,
-                        PhoneNumber = user.PhoneNumber,
-                        Email = user.Email,
-                        Address = user.Address,
-                        City = user.City
-                    };
+            //// transaction
+            //using (var trans = _userRepo.startTransactionAsync()) // startTransactionAsync
+            //{
+            //    try
+            //    {
+            //        // tambah user
+            //        var u = new User
+            //        {
+            //            Username = user.Username,
+            //            Password = BC.HashPassword(user.Password),
+            //            Fullname = user.Fullname,
+            //            PhoneNumber = user.PhoneNumber,
+            //            Email = user.Email,
+            //            Address = user.Address,
+            //            City = user.City
+            //        };
 
-                    // ambil role member
-                    var role = _roleRepo.GetRoleMemberAsync().GetAwaiter().GetResult(); // GetRoleMemberAsync
-                    // assign role ke user
-                    if (role != null)
-                    {
-                        var ur = new UserRole();
-                        ur.User = u;
-                        ur.Role = role;
+            //        // ambil role member
+            //        var role = _roleRepo.GetRoleMemberAsync().GetAwaiter().GetResult(); // GetRoleMemberAsync
+            //        // assign role ke user
+            //        if (role != null)
+            //        {
+            //            var ur = new UserRole();
+            //            ur.User = u;
+            //            ur.Role = role;
 
-                        _context.UserRoles.Add(ur);
-                        // simpan dan commit
-                        _context.SaveChanges();
-                        trans.Commit(); // commit
-                        return "sukses";
-                    }
+            //            _context.UserRoles.Add(ur);
+            //            // simpan dan commit
+            //            _context.SaveChanges();
+            //            trans.Commit(); // commit
+            //            return "sukses";
+            //        }
 
-                }
-                catch (Exception ex)
-                {
-                    trans.Rollback();
-                }
-            }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        trans.Rollback();
+            //    }
+            //}
             return "gagal";
         }
 

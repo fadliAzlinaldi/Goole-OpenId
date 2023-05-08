@@ -3,6 +3,7 @@ using Goole_OpenId.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Data.Common;
 
 namespace Goole_OpenId.Data
 {
@@ -17,10 +18,13 @@ namespace Goole_OpenId.Data
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        public async Task<IDbContextTransaction> startTransactionAsync()
+        public async Task AddUserAsync(User user)
         {
-            return await _context.Database.BeginTransactionAsync();
+            await _context.Users.AddAsync(user);
+        }
+        public async Task AddUserRoleAsync(UserRole userRole)
+        {
+            await _context.UserRoles.AddAsync(userRole);
         }
         public async Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateDto)
         {
