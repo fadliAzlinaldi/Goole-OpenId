@@ -45,7 +45,7 @@ namespace Goole_OpenId.Controllers
                     };
 
                     // ambil role member
-                    var role = _roleRepo.GetRoleMemberAsync(); // GetRoleMemberAsync
+                    var role = _roleRepo.GetRoleMemberAsync().GetAwaiter().GetResult(); // GetRoleMemberAsync
                     // assign role ke user
                     if (role != null)
                     {
