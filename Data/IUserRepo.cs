@@ -12,6 +12,5 @@ namespace Goole_OpenId.Data
         Task<User> GetUser(string username);
         Task UpdateUser(User user);
         Task<IEnumerable<User>> GetAllUser();
-        //Task<bool> UpdateProfileAsync(int id, UpdateProfileDto updateProfile);
     }
 }

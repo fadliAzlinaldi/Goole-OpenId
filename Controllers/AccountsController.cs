@@ -63,22 +63,5 @@ namespace Goole_OpenId.Controllers
                 return Unauthorized(userToken);
             }
         }
-
-        //[HttpPut("update")]
-        //public async Task<IActionResult> UpdateProfile(UpdateProfileDto updateDto)
-        //{
-        //    int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-        //    bool result = await _userRepo.UpdateProfileAsync(userId, updateDto);
-
-        //    if (result)
-        //    {
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return BadRequest("Gagal memperbarui profil pengguna.");
-        //    }
-        //}
     }
 }
