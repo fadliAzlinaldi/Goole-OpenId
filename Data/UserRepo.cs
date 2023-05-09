@@ -24,7 +24,6 @@ namespace Goole_OpenId.Data
         {
             await _context.UserRoles.AddAsync(userRole);
         }
-
         public async Task<User> GetUser(string username)
         {
             var user = await _context.Users.FirstOrDefaultAsync(o => o.Username == username && o.IsBanned == false);
