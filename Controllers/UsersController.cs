@@ -32,6 +32,7 @@ namespace Goole_OpenId.Controllers
                 return "Error updating password";
             }
         }
+        
 
     }
 }

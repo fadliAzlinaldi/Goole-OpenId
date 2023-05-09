@@ -118,5 +118,19 @@ namespace Goole_OpenId.Data
             u.Password = BC.HashPassword(password);
             await _userRepo.UpdateUser(u);
         }
+
+        public async Task Banned(string username)
+        {
+            // get username
+            var user = await _userRepo.GetUser(username);
+            if (user == null) { throw new ArgumentException("user not found"); }
+            // ambil user
+            /*var u = await _userRepo.GetUser(username);
+            u.IsBanned = true;
+            await _userRepo.UpdateUser(u);*/
+            user.IsBanned = true;
+            await _userRepo.UpdateUser(user);
+
+        }
     }
 }
