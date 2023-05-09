@@ -49,6 +49,7 @@ namespace Goole_OpenId.Controllers
                 return "failed register";
             }
         }
+
         [HttpPost("/Login")]
         public async Task<IActionResult> Login(LoginDto login)
         {
