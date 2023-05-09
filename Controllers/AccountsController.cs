@@ -22,6 +22,7 @@ namespace Goole_OpenId.Controllers
             _roleRepo = roleRepo;
             _userService = userService;
         }
+
         [HttpPost("/Register")]
         public async Task<string> Register(RegisterDto user)
         {
