@@ -1,4 +1,5 @@
 ﻿using Goole_OpenId.Data;
+using Goole_OpenId.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,21 @@ namespace Goole_OpenId.Controllers
         public UsersController(IUserService userService) 
         {
             _userService = userService;
+        }
+        [Authorize(Roles = "member")]
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateProfile(UpdateProfileDto updateProfileDto)
+        {
+            try
+            {
+                // tambah user dan role ke dalam database
+                await _userService.UpdateProfileUser(updateProfileDto);
+                return Ok("success");
+            }
+            catch (Exception)
+            {
+                return BadRequest("failed update profile");
+            }
         }
         [Authorize(Roles = "member")]
         [HttpPut("ChangePassword")]

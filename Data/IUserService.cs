@@ -7,6 +7,7 @@ namespace Goole_OpenId.Data
     {
         Task RegisterUserAsync(User user);
         Task<UserToken> LoginUserAsync(LoginDto login);
+        Task UpdateProfileUser(UpdateProfileDto updateProfileDto);
         Task UpdatePassword(string password);
         Task Banned(string username);
     }

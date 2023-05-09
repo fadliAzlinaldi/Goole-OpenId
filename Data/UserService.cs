@@ -107,6 +107,23 @@ namespace Goole_OpenId.Data
             }
         }
 
+        public async Task UpdateProfileUser(UpdateProfileDto updateUser)
+        {
+            var u = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            if (u == null)
+            {
+                throw new ArgumentException("User not found");
+            }
+            // ambil user
+            var user = await _userRepo.GetUser(u);
+            user.Fullname = updateUser.Fullname;
+            user.PhoneNumber = updateUser.PhoneNumber;
+            user.Address = updateUser.Address;
+            user.City = updateUser.City;
+            user.Email = updateUser.Email;
+
+            await _userRepo.UpdateUser(user);
+        }
         public async Task UpdatePassword(string password)
         {
             // get username
