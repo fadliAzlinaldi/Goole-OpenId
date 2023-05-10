@@ -107,7 +107,7 @@ namespace Goole_OpenId.Data
             }
         }
 
-        public async Task UpdateProfileUser(UpdateProfileDto updateUser)
+        public async Task UpdateProfileUser(UpdateProfileDto updateProfileDto)
         {
             var u = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
             if (u == null)
@@ -116,11 +116,11 @@ namespace Goole_OpenId.Data
             }
             // ambil user
             var user = await _userRepo.GetUser(u);
-            user.Fullname = updateUser.Fullname;
-            user.PhoneNumber = updateUser.PhoneNumber;
-            user.Address = updateUser.Address;
-            user.City = updateUser.City;
-            user.Email = updateUser.Email;
+            user.Fullname = updateProfileDto.Fullname;
+            user.PhoneNumber = updateProfileDto.PhoneNumber;
+            user.Address = updateProfileDto.Address;
+            user.City = updateProfileDto.City;
+            user.Email = updateProfileDto.Email;
 
             await _userRepo.UpdateUser(user);
         }
