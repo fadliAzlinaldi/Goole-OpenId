@@ -68,7 +68,7 @@ namespace Goole_OpenId.Data
                 {
                     Token = tokenHandler.WriteToken(token),
                     ExpiredAt = tokenDescriptor.Expires?.ToString(),
-                    Message = "success login",
+                    Message = "Login success",
                     Username = user.Username
                 };
             }
@@ -128,7 +128,7 @@ namespace Goole_OpenId.Data
         {
             // get username
             var user = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
-            if (user == null) { throw new ArgumentException("user not found"); }
+            if (user == null) { throw new ArgumentException("User not found"); }
 
             // ambil user
             var u = await _userRepo.GetUser(user);
@@ -140,7 +140,7 @@ namespace Goole_OpenId.Data
         {
             // get username
             var user = await _userRepo.GetUser(username);
-            if (user == null) { throw new ArgumentException("user not found"); }
+            if (user == null) { throw new ArgumentException("User not found"); }
             // ambil user
             /*var u = await _userRepo.GetUser(username);
             u.IsBanned = true;
