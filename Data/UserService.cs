@@ -116,6 +116,7 @@ namespace Goole_OpenId.Data
             }
             // ambil user
             var user = await _userRepo.GetUser(u);
+            user.Username = updateProfileDto.Username;
             user.Fullname = updateProfileDto.Fullname;
             user.PhoneNumber = updateProfileDto.PhoneNumber;
             user.Address = updateProfileDto.Address;
