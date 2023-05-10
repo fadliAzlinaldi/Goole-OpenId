@@ -17,7 +17,7 @@ namespace Goole_OpenId.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpPut("/Banned")]
+        [HttpPut("Banned")]
         public async Task<string> BannedUser(string username)
         {
             try

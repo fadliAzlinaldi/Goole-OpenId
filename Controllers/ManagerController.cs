@@ -16,7 +16,7 @@ namespace Goole_OpenId.Controllers
             _userRepo = userRepo;
         }
         [Authorize(Roles = "manager")]
-        [HttpGet("users")]
+        [HttpGet("Users")]
         public async Task<IActionResult> ListUsers()
         {
             try
