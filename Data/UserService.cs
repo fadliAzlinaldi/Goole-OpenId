@@ -30,9 +30,13 @@ namespace Goole_OpenId.Data
 
         public async Task<UserToken> LoginUserAsync(LoginDto login)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == login.Username && u.IsBanned == false);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == login.Username);
             if (user != null && BC.Verify(login.Password, user.Password))
             {
+                if (user.IsBanned)
+                {
+                    return new UserToken { Message = "User is banned", Username = "Banned User" };
+                }
                 var roleNames = await _context.UserRoles
                     .Where(ur => ur.UserId == user.Id)
                     .Join(_context.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => r.NameRole)
