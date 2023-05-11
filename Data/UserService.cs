@@ -72,7 +72,7 @@ namespace Goole_OpenId.Data
                 {
                     Token = tokenHandler.WriteToken(token),
                     ExpiredAt = tokenDescriptor.Expires?.ToString(),
-                    Message = "success login",
+                    Message = "Login success",
                     Username = user.Username
                 };
             }
@@ -111,7 +111,7 @@ namespace Goole_OpenId.Data
             }
         }
 
-        public async Task UpdateProfileUser(UpdateProfileDto updateUser)
+        public async Task UpdateProfileUser(UpdateProfileDto updateProfileDto)
         {
             var u = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
             if (u == null)
@@ -120,11 +120,12 @@ namespace Goole_OpenId.Data
             }
             // ambil user
             var user = await _userRepo.GetUser(u);
-            user.Fullname = updateUser.Fullname;
-            user.PhoneNumber = updateUser.PhoneNumber;
-            user.Address = updateUser.Address;
-            user.City = updateUser.City;
-            user.Email = updateUser.Email;
+            user.Username = updateProfileDto.Username ?? user.Username;
+            user.Fullname = updateProfileDto.Fullname ?? user.Fullname;
+            user.PhoneNumber = updateProfileDto.PhoneNumber ?? user.PhoneNumber;
+            user.Address = updateProfileDto.Address ?? user.Address;
+            user.City = updateProfileDto.City ?? user.City;
+            user.Email = updateProfileDto.Email ?? user.Email;
 
             await _userRepo.UpdateUser(user);
         }
@@ -132,7 +133,7 @@ namespace Goole_OpenId.Data
         {
             // get username
             var user = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
-            if (user == null) { throw new ArgumentException("user not found"); }
+            if (user == null) { throw new ArgumentException("User not found"); }
 
             // ambil user
             var u = await _userRepo.GetUser(user);
@@ -144,7 +145,7 @@ namespace Goole_OpenId.Data
         {
             // get username
             var user = await _userRepo.GetUser(username);
-            if (user == null) { throw new ArgumentException("user not found"); }
+            if (user == null) { throw new ArgumentException("User not found"); }
             // ambil user
             /*var u = await _userRepo.GetUser(username);
             u.IsBanned = true;

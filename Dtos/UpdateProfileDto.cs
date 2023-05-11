@@ -4,15 +4,11 @@ namespace Goole_OpenId.Dtos
 {
     public class UpdateProfileDto
     {
-        [Required]
-        public string Fullname { get; set; }
-        [Required]
+        public string? Username { get; set; }
+        public string? Fullname { get; set; }
         public string? PhoneNumber { get; set; }
-        [Required]
-        public string Email { get; set; }
-        [Required]
+        public string? Email { get; set; }
         public string? Address { get; set; }
-        [Required]
         public string? City { get; set; }
     }
 }

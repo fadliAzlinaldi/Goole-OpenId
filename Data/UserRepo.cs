@@ -34,7 +34,7 @@ namespace Goole_OpenId.Data
             if (user == null)
             {
                 // jika user tidak ditemukan
-                throw new ArgumentException($"User with username {username} not found or is banned.");
+                throw new ArgumentException($"User with username: {username} not found or is banned.");
             }
 
             return user;

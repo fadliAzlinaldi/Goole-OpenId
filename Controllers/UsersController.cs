@@ -23,11 +23,11 @@ namespace Goole_OpenId.Controllers
             {
                 // tambah user dan role ke dalam database
                 await _userService.UpdateProfileUser(updateProfileDto);
-                return Ok("success");
+                return Ok("Success");
             }
-            catch (Exception)
+            catch
             {
-                return BadRequest("failed update profile");
+                return BadRequest("Failed update profile");
             }
         }
         [Authorize(Roles = "member")]

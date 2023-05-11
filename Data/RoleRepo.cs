@@ -15,7 +15,7 @@ namespace Goole_OpenId.Data
             var role = await _context.Roles.Where(o => o.NameRole == "member").FirstOrDefaultAsync();
             if (role == null)
             {
-                throw new Exception("role not found");
+                throw new Exception("Role not found");
             }
             return role;
         }

@@ -42,11 +42,11 @@ namespace Goole_OpenId.Controllers
 
                 // tambah user dan role ke dalam database
                 await _userService.RegisterUserAsync(u);
-                return "success";
+                return "Success";
             }
             catch (Exception ex)
             {
-                return "failed register";
+                return "Register failed";
             }
         }
 
