@@ -9,6 +9,6 @@ namespace Goole_OpenId.Data
         Task<UserToken> LoginUserAsync(LoginDto login);
         Task UpdateProfileUser(UpdateProfileDto updateProfileDto);
         Task UpdatePassword(string password);
-        Task Banned(string username);
+        Task Banned(string username, bool status);
     }
 }
