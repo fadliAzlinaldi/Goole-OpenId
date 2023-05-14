@@ -120,7 +120,6 @@ namespace Goole_OpenId.Data
             }
             // ambil user
             var user = await _userRepo.GetUser(u);
-            user.Username = updateProfileDto.Username ?? user.Username;
             user.Fullname = updateProfileDto.Fullname ?? user.Fullname;
             user.PhoneNumber = updateProfileDto.PhoneNumber ?? user.PhoneNumber;
             user.Address = updateProfileDto.Address ?? user.Address;

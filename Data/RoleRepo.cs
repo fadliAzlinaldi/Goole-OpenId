@@ -12,7 +12,7 @@ namespace Goole_OpenId.Data
         }
         public async Task<Role> GetRoleMemberAsync()
         {
-            var role = await _context.Roles.Where(o => o.NameRole == "member").FirstOrDefaultAsync();
+            var role = await _context.Roles.Where(o => o.NameRole == "admin").FirstOrDefaultAsync();
             if (role == null)
             {
                 throw new Exception("Role not found");
