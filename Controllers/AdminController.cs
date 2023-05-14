@@ -18,12 +18,12 @@ namespace Goole_OpenId.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut("Banned")]
-        public async Task<string> BannedUser(string username, bool status)
+        public async Task<string> BannedUser(string username)
         {
             try
             {
-                await _userService.Banned(username, status);
-                if (status == true) 
+                var result = await _userService.Banned(username);
+                if (result == true)
                 {
                     return "Banned Success!";
                 }

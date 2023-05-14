@@ -141,15 +141,25 @@ namespace Goole_OpenId.Data
             await _userRepo.UpdateUser(u);
         }
 
-        public async Task Banned(string username, bool status)
+        public async Task<bool> Banned(string username)
         {
 
             // Get username
             var user = await _context.Users.FirstOrDefaultAsync(o => o.Username == username);
             if (user == null) { throw new ArgumentException("User not found"); }
 
-            user.IsBanned = status;
+            if (user.IsBanned == true)
+            {
+                user.IsBanned = false;
+            }
+            else
+            {
+                user.IsBanned = true;
+            }
+
+            //user.IsBanned = status;
             await _userRepo.UpdateUser(user);
+            return user.IsBanned;
         }
     }
 }
