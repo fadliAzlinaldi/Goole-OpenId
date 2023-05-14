@@ -18,16 +18,23 @@ namespace Goole_OpenId.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut("Banned")]
-        public async Task<string> BannedUser(string username)
+        public async Task<string> BannedUser(string username, bool status)
         {
             try
             {
-                await _userService.Banned(username);
-                return "Banned Success!";
+                await _userService.Banned(username, status);
+                if (status == true) 
+                {
+                    return "Banned Success!";
+                }
+                else
+                {
+                    return "Unbanned Success!";
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception("Cannot banned user!");
+                throw new Exception("Cannot banned/unbanned user!");
             }
         }
     }

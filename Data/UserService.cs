@@ -106,7 +106,7 @@ namespace Goole_OpenId.Data
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Gagal menambahkan user", ex);
+                    throw new Exception("Failed to add user", ex);
                 }
             }
         }
@@ -141,18 +141,15 @@ namespace Goole_OpenId.Data
             await _userRepo.UpdateUser(u);
         }
 
-        public async Task Banned(string username)
+        public async Task Banned(string username, bool status)
         {
-            // get username
-            var user = await _userRepo.GetUser(username);
-            if (user == null) { throw new ArgumentException("User not found"); }
-            // ambil user
-            /*var u = await _userRepo.GetUser(username);
-            u.IsBanned = true;
-            await _userRepo.UpdateUser(u);*/
-            user.IsBanned = true;
-            await _userRepo.UpdateUser(user);
 
+            // Get username
+            var user = await _context.Users.FirstOrDefaultAsync(o => o.Username == username);
+            if (user == null) { throw new ArgumentException("User not found"); }
+
+            user.IsBanned = status;
+            await _userRepo.UpdateUser(user);
         }
     }
 }
